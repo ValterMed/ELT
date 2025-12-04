@@ -60,6 +60,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
+      - airflow_home:/home/airflow
       - ./dags:/home/airflow/dags
       - ./logs:/home/airflow/logs
       - ./data:/home/airflow/data
@@ -70,7 +71,7 @@ services:
         condition: service_healthy
     networks:
       - pollution_network
-    command: bash -c "sleep 10 && airflow db migrate && airflow webserver"
+    command: bash -c "sleep 10 && export AIRFLOW__DATABASE__SQLALCHEMY_CONN=postgresql://airflow:airflow@postgres:5432/airflow && airflow db migrate && airflow webserver"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
       interval: 30s
@@ -92,6 +93,7 @@ services:
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
       AIRFLOW__CORE__ENABLE_XCOM_PICKLING: 'true'
     volumes:
+      - airflow_home:/home/airflow
       - ./dags:/home/airflow/dags
       - ./logs:/home/airflow/logs
       - ./data:/home/airflow/data
@@ -121,6 +123,7 @@ services:
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
       AIRFLOW__CORE__ENABLE_XCOM_PICKLING: 'true'
     volumes:
+      - airflow_home:/home/airflow
       - ./dags:/home/airflow/dags
       - ./logs:/home/airflow/logs
       - ./data:/home/airflow/data
@@ -138,6 +141,7 @@ services:
 
 volumes:
   postgres_data:
+  airflow_home:
 
 networks:
   pollution_network:

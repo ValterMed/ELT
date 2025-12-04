@@ -43,7 +43,7 @@ dag = DAG(
 # ============================================
 POSTGRES_CONN_ID = 'postgres_default'
 DATA_DIR = '/home/airflow/data'
-RAW_CSV_PATH = os.path.join(DATA_DIR, 'raw_pollution_data.csv')
+RAW_CSV_PATH = os.path.join(DATA_DIR, 'kaggle/air-pollution-in-seoul/AirPollutionSeoul/Original-Data/Measurement_info.csv')
 PROCESSED_CSV_PATH = os.path.join(DATA_DIR, 'processed_pollution_data.csv')
 
 # Ensure data directory exists
