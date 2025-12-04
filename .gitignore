@@ -1,0 +1,7 @@
+logs/
+data/raw_pollution_data.csv
+data/kaggle/
+*.pyc
+__pycache__/
+.venv/
+.DS_Store
