@@ -7,12 +7,15 @@ services:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
-      POSTGRES_INITDB_ARGS: "-c max_connections=1000"
+    command: >
+      postgres 
+      -c max_connections=1000
+      -c shared_buffers=256MB
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init_db.sql:/docker-entrypoint-initdb.d/01-init_db.sql
+      - ./sql/01-init_db.sql:/docker-entrypoint-initdb.d/01-init_db.sql
     networks:
       - pollution_network
     healthcheck:
@@ -67,7 +70,7 @@ services:
         condition: service_healthy
     networks:
       - pollution_network
-    command: bash -c "airflow db migrate && airflow webserver"
+    command: bash -c "sleep 10 && airflow db migrate && airflow webserver"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
       interval: 30s

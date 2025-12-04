@@ -47,8 +47,7 @@ CREATE TABLE IF NOT EXISTS analytics_pollution (
     pollution_category VARCHAR(50),
     hourly_timestamp TIMESTAMP,
     data_quality_flag VARCHAR(20),
-    transformed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
+    transformed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create indexes on analytics table
